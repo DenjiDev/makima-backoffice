@@ -105,6 +105,7 @@ NestJS will be responsible for managing routes and some HTTP workloads inside th
     }
     ```
 1. And now, lets import this new created method in our controller. First lets export it in customer module: 
+
     ```
     @Module({
       controllers: [CustomerController],
@@ -115,11 +116,11 @@ NestJS will be responsible for managing routes and some HTTP workloads inside th
     export class CustomerModule {}
     ```
 
-And now lets import in customer controller and return in new method:
+1. Now, lets import in customer controller and return in new method:
 
     ```
-   @Controller('customers')
-   export class CustomerController {
+    @Controller('customers')
+    export class CustomerController {
     //Import here
      constructor(private readonly customerService: CustomerService) {}
 
