@@ -3,9 +3,14 @@ FROM node:16 AS builder
 WORKDIR /app
 
 COPY package*.json ./
+
+RUN npm install --ignore-scripts -g @nestjs/cli 
+
 COPY prisma ./prisma/
 
-RUN yarn install --production
+RUN yarn install --ignore-scripts
+
+RUN yarn gen 
 
 COPY . .
 
