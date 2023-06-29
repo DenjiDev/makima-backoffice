@@ -10,6 +10,8 @@ COPY prisma ./prisma/
 
 RUN yarn install --ignore-scripts
 
+RUN yarn gen 
+
 COPY . .
 
 RUN yarn build
