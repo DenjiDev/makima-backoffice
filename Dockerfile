@@ -8,7 +8,7 @@ RUN npm install --ignore-scripts -g @nestjs/cli
 
 COPY prisma ./prisma/
 
-RUN yarn install --production
+RUN yarn install 
 
 COPY . .
 
