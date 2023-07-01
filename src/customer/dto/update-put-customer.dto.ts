@@ -2,8 +2,11 @@ import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString } fr
 import { Customer } from "../entities/customer.entity";
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateCustomerDto extends Customer{
+
+export class UpdatePutCustomerDto extends Customer {
+
     @IsString()
+    @IsOptional()
     @IsPhoneNumber("BR")
     @ApiProperty({
         description: 'Customer phone number',
@@ -13,6 +16,7 @@ export class CreateCustomerDto extends Customer{
     phone: string;
 
     @IsString()
+    @IsOptional()
     @IsNotEmpty()
     @ApiProperty({
         description: 'Customer name',
@@ -39,4 +43,5 @@ export class CreateCustomerDto extends Customer{
         type: String
     })
     email: string;
+
 }
