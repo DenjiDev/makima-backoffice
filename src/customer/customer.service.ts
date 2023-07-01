@@ -4,7 +4,6 @@ import { PrismaService } from '../prisma/prisma.service';
 import { GetCustomerDto } from './dto/get-customer.dto';
 import { UpdatePutCustomerDto } from './dto/update-put-customer.dto';
 import { UpdatePatchCustomerDto } from './dto/update-patch-customer.dto';
-import { ApiUnauthorizedResponse } from '@nestjs/swagger';
 
 
 @Injectable()
