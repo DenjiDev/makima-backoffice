@@ -1,6 +1,7 @@
 import { ConflictException, Injectable, Logger } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { GetCustomerDto } from './dto/get-customer.dto';
 
 
 @Injectable()
@@ -36,4 +37,7 @@ export class CustomerService {
     }
   }
 
+  async listAllCustomers() {
+    return this.prisma.customer.findMany() as unknown as GetCustomerDto[];
+  }
 }
