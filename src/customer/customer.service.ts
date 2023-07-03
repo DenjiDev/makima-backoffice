@@ -2,8 +2,7 @@ import { ConflictException, Injectable, Logger } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetCustomerDto } from './dto/get-customer.dto';
-import { UpdatePutCustomerDto } from './dto/update-put-customer.dto';
-import { UpdatePatchCustomerDto } from './dto/update-patch-customer.dto';
+import { UpdateCustomersDto } from './dto/update-customer.dto';
 
 
 @Injectable()
@@ -43,33 +42,7 @@ export class CustomerService {
     return this.prisma.customer.findMany() as unknown as GetCustomerDto[];
   }
 
-  async updateAllCustomerInfo(id: string, {email, name, phone, credit, groups}: UpdatePutCustomerDto) {
-
-    if (email === undefined) {
-      email = '';
-    }
-
-    if (name === undefined) {
-      name = '';
-    }
-
-    if (phone === undefined) {
-      phone = '';
-    }
-
-    if (credit === undefined) {
-      credit = 0;
-    }
-
-    return this.prisma.customer.update({
-      data: {email, name, phone, credit, groups},
-      where: {
-        id
-      }
-    })
-  }
-
-  async updateAnyCustomerInfo(id: string, data: UpdatePatchCustomerDto) {
+  async updateCustomers(id: string, data: UpdateCustomersDto) {
     return this.prisma.customer.update({
       data,
       where: {

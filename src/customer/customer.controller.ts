@@ -1,8 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Put, Param, Delete, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, HttpStatus } from '@nestjs/common';
 import { CustomerService } from './customer.service';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { UpdatePutCustomerDto } from './dto/update-put-customer.dto';
-import { UpdatePatchCustomerDto } from './dto/update-patch-customer.dto';
+import { UpdateCustomersDto } from './dto/update-customer.dto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetCustomerDto } from './dto/get-customer.dto';
@@ -27,18 +25,11 @@ export class CustomerController {
     return this.customerService.listAllCustomers();
   }
 
-  @ApiOperation({ summary: 'Update desired customers information and clear all others'})
-  @ApiResponse({ status: HttpStatus.OK, description: 'The customer info has been updated successfully.', type: UpdatePutCustomerDto })
-  @Put(':id')
-  async update(@Body() data: UpdatePutCustomerDto, @Param('id') id: string) {
-    return this.customerService.updateAllCustomerInfo(id, data)
-  }
-
-  @ApiOperation({ summary: 'Update desired customers information and ignore all others'})
-  @ApiResponse({ status: HttpStatus.OK, description: 'The customer info has been updated successfully.', type: UpdatePatchCustomerDto })
+  @ApiOperation({ summary: 'Update customers info'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The customer info has been updated successfully.', type: UpdateCustomersDto })
   @Patch(':id')
-  async partialUpdate(@Body() data: UpdatePatchCustomerDto, @Param('id') id: string) {
-    return this.customerService.updateAnyCustomerInfo(id, data)
+  async updateCustomers(@Body() data: UpdateCustomersDto, @Param('id') id: string) {
+    return this.customerService.updateCustomers(id, data)
   }
 
 }
