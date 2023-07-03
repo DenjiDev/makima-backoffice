@@ -31,7 +31,6 @@ export class CreateCustomerDto extends Customer{
     credit?: number;
 
     @IsEmail()
-    @IsOptional()
     @IsNotEmpty()
     @ApiProperty({
         description: 'Customer email',
