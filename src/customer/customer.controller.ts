@@ -29,7 +29,7 @@ export class CustomerController {
   @ApiResponse({ status: HttpStatus.OK, description: 'The customer has been returned successfully.', type: [GetCustomerDto] })
   @Get(":id")
   findOne(@Param('id') id:string) {
-    return this.customerService.findOne('id')
+    return this.customerService.findOne(id)
   }
 
 }
