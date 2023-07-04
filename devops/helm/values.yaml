@@ -13,7 +13,7 @@ makima-ms:
 
   imagePullSecrets: []
   nameOverride: ""
-  fullnameOverride: ""
+  fullnameOverride: "makima-backoffice"
 
   strategy:
     rollingUpdate:
