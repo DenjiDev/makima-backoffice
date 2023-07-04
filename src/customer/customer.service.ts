@@ -3,7 +3,6 @@ import { CreateCustomerDto } from './dto/create-customer.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetCustomerDto } from './dto/get-customer.dto';
 import { UpdateCustomersDto } from './dto/update-customer.dto';
-import { Customer } from './entities/customer.entity';
 
 
 @Injectable()
