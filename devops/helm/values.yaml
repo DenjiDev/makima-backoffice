@@ -101,3 +101,6 @@ makima-ms:
     secret:
       - name: DATABASE_URL
         value: "cG9zdGdyZXNxbDovL3Bvc3RncmVzOjEzMjQxNUFkQHBvc3RncmVzLnBvc3RncmVzLnN2Yy5jbHVzdGVyLmxvY2FsOjU0MzIvbWFraW1hLWJhY2tvZmZpY2U="
+    env:
+      - name: API_PORT
+        value: 8080
