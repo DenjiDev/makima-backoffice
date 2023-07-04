@@ -28,7 +28,7 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.0.0",
-    "@nestjs/mapped-types": "*",
+    "@nestjs/mapped-types": "^2.0.1",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.0.3",
     "@prisma/client": "^4.16.0",
@@ -39,7 +39,8 @@
     "prom-client": "^14.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "swagger-stats": "^0.99.7"
+    "swagger-stats": "^0.99.7",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
