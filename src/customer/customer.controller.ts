@@ -24,4 +24,10 @@ export class CustomerController {
   listAllCustomers() :Promise<GetCustomerDto[]> {
     return this.customerService.listAllCustomers();
   }
+
+  @Get(":id")
+  findOne(@Param('id') id:String) {
+    return this.customerService.findOne('id')
+  }
+
 }
