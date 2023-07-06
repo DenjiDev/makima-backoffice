@@ -68,7 +68,7 @@ export class CustomerService {
 
     try {
 
-      return this.prisma.customer.update({
+      return await this.prisma.customer.update({
         data,
         where: {
           id
