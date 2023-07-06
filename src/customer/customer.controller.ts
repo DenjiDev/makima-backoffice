@@ -31,5 +31,12 @@ export class CustomerController {
   async update(@Body() data: UpdateCustomersDto, @Param('id') id: string) {
     return this.customerService.update(id, data)
   }
+  
+  @ApiOperation({ summary: 'List specified customer'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The customer has been returned successfully.', type: GetCustomerDto })
+  @Get(":id")
+  findOne(@Param('id') id:string) {
+    return this.customerService.findOne(id)
+  }
 
 }

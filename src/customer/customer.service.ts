@@ -38,12 +38,7 @@ export class CustomerService {
     }
   }
 
-  async findAll() {
-    return this.prisma.customer.findMany() as unknown as GetCustomerDto[];
-  }
-
-  async update(id: string, data: UpdateCustomersDto) {
-
+  async findOne(id: string) {
     try {
       const foundCustomer = await this.prisma.customer.findFirst({
         where: {
@@ -53,8 +48,25 @@ export class CustomerService {
 
       if (!foundCustomer) {
         Logger.error('Customer not found', '', 'CustomerService', true)
-        throw new NotFoundException(`Customer not found`)
+        throw new NotFoundException('Customer not found')
       }
+      return foundCustomer
+
+    } catch (error) {
+      Logger.error(error, '', 'CustomerService', true)
+      throw error
+    }
+  }
+
+  async findAll() {
+    return this.prisma.customer.findMany() as unknown as GetCustomerDto[];
+  }
+
+  async update(id: string, data: UpdateCustomersDto) {
+
+    await this.findOne(id)
+
+    try {
 
       return this.prisma.customer.update({
         data,
