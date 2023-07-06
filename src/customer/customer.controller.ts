@@ -21,8 +21,8 @@ export class CustomerController {
   @ApiOperation({ summary: 'List all customers'})
   @ApiResponse({ status: HttpStatus.OK, description: 'The customer list has been returned successfully.', type: [GetCustomerDto] })
   @Get()
-  listAllCustomers() :Promise<GetCustomerDto[]> {
-    return this.customerService.listAllCustomers();
+  findAll() :Promise<GetCustomerDto[]> {
+    return this.customerService.findAll();
   }
 
   @ApiOperation({ summary: 'List specified customer'})
@@ -30,6 +30,13 @@ export class CustomerController {
   @Get(":id")
   findOne(@Param('id') id:string) {
     return this.customerService.findOne(id)
+  }
+
+  @ApiOperation({ summary: 'Update customers info'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The customer info has been updated successfully.', type: UpdateCustomerDto })
+  @Patch(':id')
+  async update(@Body() data: UpdateCustomerDto, @Param('id') id: string) {
+    return this.customerService.update(id, data)
   }
 
 }

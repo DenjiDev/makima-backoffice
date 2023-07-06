@@ -2,6 +2,7 @@ import { ConflictException, Injectable, Logger, NotFoundException } from '@nestj
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetCustomerDto } from './dto/get-customer.dto';
+import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 
 @Injectable()
@@ -57,7 +58,36 @@ export class CustomerService {
     }
   }
 
-  async listAllCustomers() {
+  async findAll() {
     return this.prisma.customer.findMany() as unknown as GetCustomerDto[];
   }
+
+  async update(id: string, data: UpdateCustomerDto) {
+
+    try {
+      const foundCustomer = await this.prisma.customer.findFirst({
+        where: {
+          id
+        }
+      })
+
+      if (!foundCustomer) {
+        Logger.error('Customer not found', '', 'CustomerService', true)
+        throw new NotFoundException(`Customer (${id}) not found`)
+      }
+
+      return this.prisma.customer.update({
+        data,
+        where: {
+          id
+        }
+      })
+
+    } catch (error) {
+      Logger.error(error, '', 'CustomerService', true)
+      throw error
+    }
+  }
+
+
 }
