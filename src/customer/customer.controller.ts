@@ -25,11 +25,17 @@ export class CustomerController {
     return this.customerService.listAllCustomers();
   }
 
-  @ApiOperation({ summary: 'List specified customer'})
+  @ApiOperation({ summary: 'Return specified customer'})
   @ApiResponse({ status: HttpStatus.OK, description: 'The customer has been returned successfully.', type: GetCustomerDto })
   @Get(":id")
   findOne(@Param('id') id:string) {
     return this.customerService.findOne(id)
   }
 
+  @ApiOperation({ summary: 'Delete specified customer'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The customer has been deleted successfully.', type: GetCustomerDto })
+  @Delete(":id")
+  deleteOne(@Param('id') id:string) {
+    return this.customerService.deleteOne(id)
+  }
 }

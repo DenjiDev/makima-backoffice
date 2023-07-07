@@ -45,7 +45,7 @@ export class CustomerService {
         }
       })
 
-      if (foundCustomer) {
+      if (!foundCustomer) {
         Logger.error('Customer not found', '', 'CustomerService', true)
         throw new NotFoundException('Customer not found')
       }
@@ -59,5 +59,23 @@ export class CustomerService {
 
   async listAllCustomers() {
     return this.prisma.customer.findMany() as unknown as GetCustomerDto[];
+  }
+
+  async deleteOne(id: string){
+    try{
+      const foundCustomer = await this.prisma.customer.delete({
+        where: {
+          id
+        }
+      })
+
+      if(!foundCustomer) {
+        Logger.error('Customer not found', '', 'CustomerService', true)
+        throw new NotFoundException('Customer not found')
+      }
+    }catch(error){
+      Logger.error(error, '', 'CustomerService', true)
+      throw error
+    }
   }
 }
