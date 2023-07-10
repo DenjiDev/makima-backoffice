@@ -3,6 +3,7 @@ import { GroupService } from './group.service';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { GetGroupDto } from './dto/get-group.dto';
 
 
 @Controller('groups')
@@ -18,7 +19,7 @@ export class GroupController {
   }
 
   @ApiOperation({ summary: 'List all groups'})
-  @ApiResponse({ status: HttpStatus.OK, description: 'The group list has been returned successfully.'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The group list has been returned successfully.', type: [GetGroupDto]})
   @Get()
   findAll() {
     return this.groupService.findAll();
