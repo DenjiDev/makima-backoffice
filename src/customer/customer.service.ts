@@ -38,6 +38,7 @@ export class CustomerService {
     }
   }
 
+
   async findOne(id: string) {
     try {
       const foundCustomer = await this.prisma.customer.findFirst({
@@ -74,6 +75,7 @@ export class CustomerService {
           id
         }
       })
+
 
     } catch (error) {
       Logger.error(error, '', 'CustomerService', true)
