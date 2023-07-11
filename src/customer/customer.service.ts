@@ -7,7 +7,7 @@ import { UpdateCustomersDto } from './dto/update-customer.dto';
 
 @Injectable()
 export class CustomerService {
-  constructor(private readonly prisma: PrismaService){
+  constructor(private readonly prisma: PrismaService) {
 
   }
   async create(data: CreateCustomerDto) {
@@ -16,12 +16,12 @@ export class CustomerService {
     try {
       const foundCustomer = await this.prisma.customer.findFirst({
         where: {
-          phone, 
+          phone,
           email
         }
       })
 
-      if(foundCustomer){
+      if (foundCustomer) {
         Logger.error('Customer already created', '', 'CustomerService', true)
         throw new ConflictException(`Customer already created`)
       }
@@ -83,5 +83,29 @@ export class CustomerService {
     }
   }
 
+  async deleteOne(id: string) {
+    try {
+      const foundCustomer = await this.prisma.customer.findFirst({
+        where: {
+          id
+        }
+      })
+
+      if (!foundCustomer) {
+        Logger.error('Customer not found', '', 'CustomerService', true)
+        throw new NotFoundException('Customer not found')
+      }
+
+      await this.prisma.customer.delete({
+        where: {
+          id
+        }
+      })
+
+    } catch (error) {
+      Logger.error(error, '', 'CustomerService', true)
+      throw error
+    }
+  }
 
 }

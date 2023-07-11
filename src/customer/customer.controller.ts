@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, HttpStatus, Delete } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { UpdateCustomersDto } from './dto/update-customer.dto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -32,11 +32,17 @@ export class CustomerController {
     return this.customerService.update(id, data)
   }
   
-  @ApiOperation({ summary: 'List specified customer'})
+  @ApiOperation({ summary: 'Return specified customer'})
   @ApiResponse({ status: HttpStatus.OK, description: 'The customer has been returned successfully.', type: GetCustomerDto })
   @Get(":id")
   findOne(@Param('id') id:string) {
     return this.customerService.findOne(id)
   }
 
+  @ApiOperation({ summary: 'Delete specified customer'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The customer has been deleted successfully.', type: GetCustomerDto })
+  @Delete(":id")
+  deleteOne(@Param('id') id:string) {
+    return this.customerService.deleteOne(id)
+  }
 }
