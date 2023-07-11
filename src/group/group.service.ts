@@ -48,4 +48,22 @@ export class GroupService {
     return this.prisma.group.findMany();
   }
 
+  async deleteOne(id: string) {
+    try {
+      const foundGroup = await this.prisma.group.findFirst({
+        where: {
+          id
+        }
+      })
+
+      if (!foundGroup) {
+        Logger.error('Group not found', '', 'GroupService', true)
+        throw new NotFoundException('Group not found')
+      }
+    }catch(error) {
+      Logger.error(error, '' , 'GroupService', true)
+      throw error
+    }
+  }
+
 }
