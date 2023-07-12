@@ -56,11 +56,12 @@ export class GroupService {
         }
       })
 
-      return foundGroup;
-
       if (!foundGroup) {
         throw new NotFoundException('Group not found')
       }
+
+      return foundGroup;
+      
     } catch (error) {
       Logger.error(error, '', 'GroupService', true)
       throw error
