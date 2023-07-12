@@ -9,6 +9,7 @@ makima-ms:
     repository: qzzdocker24/makima-backoffice
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
+    tag: "v0.1.0"
 
   imagePullSecrets: []
   nameOverride: ""
