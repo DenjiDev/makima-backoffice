@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, HttpStatus } from '@nestjs/common';
 import { GroupService } from './group.service';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { UpdateGroupDto } from './dto/update-group.dto';
 import { GetGroupDto } from './dto/get-group.dto';
-
 
 @Controller('groups')
 export class GroupController {
@@ -22,5 +22,12 @@ export class GroupController {
   @Get()
   findAll() {
     return this.groupService.findAll();
+  }
+
+  @ApiOperation({ summary: 'Update groups info'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The group info has been updated successfully.', type: UpdateGroupDto })
+  @Patch(':id')
+  async update(@Body() data: UpdateGroupDto, @Param('id') id: string) {
+    return this.groupService.update(id, data)
   }
 }

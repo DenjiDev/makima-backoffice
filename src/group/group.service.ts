@@ -1,6 +1,7 @@
 import { ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { UpdateGroupDto } from './dto/update-group.dto';
 
 @Injectable()
 export class GroupService {
@@ -44,8 +45,36 @@ export class GroupService {
     }
     }
 
-  findAll() {
+  async findAll() {
     return this.prisma.group.findMany();
+  }
+
+  async update(id: string, data: UpdateGroupDto) {
+
+    try {
+      const foundGroup = await this.prisma.group.findFirst({
+        where: {
+          id
+        }
+      })
+
+      if (!foundGroup) {
+        Logger.error('Group not found', '', 'GroupService', true)
+        throw new NotFoundException('Group not found')
+      }
+
+    } catch (error) {
+      Logger.error(error, '', 'CustomerService', true)
+      throw error
+    }
+
+    return await this.prisma.group.update({
+        data,
+        where: {
+          id
+        }
+    })    
+  
   }
 
 }
