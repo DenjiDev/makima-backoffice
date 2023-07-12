@@ -3,7 +3,7 @@ name: makima-backoffice
 description: A Helm chart for Makima Backoffice Service.
 type: application
 version: 0.1.0
-appVersion: "0.1.0"
+appVersion: "v0.1.0"
 dependencies:
   - name: makima-ms
     repository: https://denjidev.github.io/makima-ms
