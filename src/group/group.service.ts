@@ -1,14 +1,14 @@
-import { ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Catch, ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class GroupService {
   constructor(private readonly prisma: PrismaService) {
-    
+
   }
   async create(data: CreateGroupDto) {
-    const {chatId, customerId} = data
+    const { chatId, customerId } = data
     try {
       const foundCustomer = await this.prisma.customer.findFirst({
         where: {
@@ -42,10 +42,32 @@ export class GroupService {
       Logger.error(error, '', 'CustomerService', true)
       throw error
     }
-    }
+  }
 
   findAll() {
     return this.prisma.group.findMany();
   }
 
+  async findOne(id: string) {
+    try {
+      const foundGroup = await this.prisma.group.findFirst({
+        where: {
+          id
+        }
+      })
+
+      if (!foundGroup) {
+        throw new NotFoundException('Group not found')
+      }
+
+      return foundGroup;
+      
+    } catch (error) {
+      Logger.error(error, '', 'GroupService', true)
+      throw error
+    }
+  }
 }
+
+
+
