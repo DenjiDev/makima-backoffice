@@ -1,6 +1,4 @@
-import { IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString } from "class-validator";
-import { CreateCustomerDto } from "./create-customer.dto";
-import { PartialType } from "@nestjs/mapped-types";
+import { IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateCustomersDto {
