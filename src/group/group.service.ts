@@ -5,10 +5,10 @@ import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class GroupService {
   constructor(private readonly prisma: PrismaService) {
-    
+
   }
   async create(data: CreateGroupDto) {
-    const {chatId, customerId} = data
+    const { chatId, customerId } = data
     try {
       const foundCustomer = await this.prisma.customer.findFirst({
         where: {
@@ -42,7 +42,7 @@ export class GroupService {
       Logger.error(error, '', 'CustomerService', true)
       throw error
     }
-    }
+  }
 
   findAll() {
     return this.prisma.group.findMany();
@@ -60,8 +60,14 @@ export class GroupService {
         Logger.error('Group not found', '', 'GroupService', true)
         throw new NotFoundException('Group not found')
       }
-    }catch(error) {
-      Logger.error(error, '' , 'GroupService', true)
+
+      await this.prisma.group.delete({
+        where: {
+          id
+        }
+      })
+    } catch (error) {
+      Logger.error(error, '', 'GroupService', true)
       throw error
     }
   }
