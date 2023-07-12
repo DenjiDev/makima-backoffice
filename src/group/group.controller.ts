@@ -5,7 +5,6 @@ import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UpdateGroupDto } from './dto/update-group.dto';
 import { GetGroupDto } from './dto/get-group.dto';
 
-
 @Controller('groups')
 export class GroupController {
   constructor(private readonly groupService: GroupService) {}
