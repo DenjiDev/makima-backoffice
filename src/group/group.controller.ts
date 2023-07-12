@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpStatus, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpStatus, Param, Delete } from '@nestjs/common';
 import { GroupService } from './group.service';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -24,10 +24,11 @@ export class GroupController {
     return this.groupService.findAll();
   }
 
-  @ApiOperation({ summary: 'Delete specified groups'})
-  @ApiResponse({status: HttpStatus.OK, description:'The group chosed as been deleted'})
-  @Delete(':id')
-  deleteOne(@Param('id') id: string){
-    return this.groupService.deleteOne(id);
+  @ApiOperation({summary: 'Search the group specified'})
+  @ApiResponse({ status: HttpStatus.OK, description: 'The group has been finded successfully.' , type: GetGroupDto})
+  @Get(':id')
+  findOne(@Param('id') id: string){
+    return this.groupService.findOne(id);
   }
+
 }
