@@ -4,9 +4,6 @@ on:
       - "**"
     paths-ignore:
       - "**/*.md"
-  push:
-    branches:
-      - develop
   workflow_dispatch:
 
 name: Standard
