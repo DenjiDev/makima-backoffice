@@ -67,7 +67,7 @@ jobs:
           tags: qzzdocker24/makima-backoffice:${{ github.sha}}, qzzdocker24/makima-backoffice:latest
   deploy:
     name: Deploy to K8S
-    if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.actor != 'action@github.com'}}
+    if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.actor != 'github-actions[bot]'}}
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub Event Name
@@ -87,7 +87,8 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          force_with_lease: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: develop
       # - name: Update Image Version in the related HelmChart values.yaml
       #   uses: fjogeleit/yaml-update-action@main
       #   with:
