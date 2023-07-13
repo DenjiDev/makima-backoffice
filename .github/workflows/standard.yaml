@@ -33,6 +33,7 @@ jobs:
       - run: yarn install
       # - run: npx prisma generate
       # - run: yarn run test:ci
+      #
       - uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
