@@ -70,6 +70,11 @@ jobs:
     if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/develop'}}
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub Event Name
+        id: github_event_name
+        run: echo '${{ github.event_name }}'
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Update Image Version in the related HelmChart values.yaml
         uses: fjogeleit/yaml-update-action@main
         with:
