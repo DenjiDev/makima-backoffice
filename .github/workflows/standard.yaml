@@ -41,7 +41,7 @@ jobs:
   ci_docker_dev:
     name: CI Docker - Dev
     needs: ci_test_sonar
-    if: ${{ success() && github.event_name != 'push'}}
+    if: ${{ success() && github.event_name != 'pull_request_target' && github.event_name != 'push'}}
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub Event Name
@@ -67,6 +67,7 @@ jobs:
           tags: qzzdocker24/makima-backoffice:${{ github.sha}}, qzzdocker24/makima-backoffice:latest
   deploy:
     name: Deploy to K8S
+    needs: ci_docker_dev
     if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.actor != 'github-actions[bot]'}}
     runs-on: ubuntu-latest
     steps:
@@ -85,44 +86,11 @@ jobs:
         run: |
           git config --local user.email "biel_surf159@hotmail.com"
           git config --local user.name "GabSnow24"
-          git commit -am "chore: change image tag"
-      - name: Push changes
+          git commit -am "chore: change image tag to ${{ github.sha}}"
+      - name: Update image version 
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: develop
           force: true
-      # - name: Update Image Version in the related HelmChart values.yaml
-      #   uses: fjogeleit/yaml-update-action@main
-      #   with:
-      #     valueFile: "devops/helm/values.yaml"
-      #     propertyPath: "makima-ms.image.tag"
-      #     value: ${{ github.sha}}
-      #     branch: develop
-      #     message: "Update Image Version to ${{ github.sha}}"
-      # - name: Dump GitHub Event Name
-      #   id: github_event_name
-      #   run: echo '${{ github.event_name }}'
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      #   with:
-      #     repository: GabSnow24/bot-wpp-k8s
-      #     token: ${{ secrets.GH_PAT }}
-      # - name: Kustomize
-      #   uses: imranismail/setup-kustomize@v1
-      #   with:
-      #     kustomize_version: v3.6.1
-      # - name: Update K8S
-      #   run: |
-      #     cd kube
-      #     cd dev
-      #     kustomize edit set image bot-wpp=qzzdocker24/bot-wpp:${{github.sha}}
-      # - name: Commit tag
-      #   run: |
-      #     git config --local user.email "action@github.com"
-      #     git config --local user.name "Deploy Action"
-      #     git commit -am "chore: change image tag"
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     force_with_lease: true
+
