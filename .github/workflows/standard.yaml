@@ -40,7 +40,6 @@ jobs:
 
   ci_docker_dev:
     name: CI Docker - Dev
-    needs: ci_test_sonar
     if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-latest
     steps:
