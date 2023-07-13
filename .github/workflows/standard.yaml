@@ -76,7 +76,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          persist-credentials: false 
           fetch-depth: 0 
       - name: Set image tag 
         uses: mikefarah/yq@master
@@ -84,14 +83,15 @@ jobs:
           cmd: yq -i '.makima-ms[0].image.tag = "${{ github.sha}}"' 'devops/helm/values.yaml'
       - name: Commit tag
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Deploy Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git commit -am "chore: change image tag"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: develop
+          force: true
       # - name: Update Image Version in the related HelmChart values.yaml
       #   uses: fjogeleit/yaml-update-action@main
       #   with:
