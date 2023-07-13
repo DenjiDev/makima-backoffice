@@ -89,6 +89,3 @@ makima-ms:
     env:
       - name: API_PORT
         value: "8080"
-  0:
-    image:
-      tag: 4f6444bcb9882ffd1424c758fef496445e80b9ab
