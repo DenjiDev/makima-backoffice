@@ -80,7 +80,7 @@ jobs:
       - name: Set image tag 
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.makima-ms[0].image.tag = "${{ github.sha}}"' 'devops/helm/values.yaml'
+          cmd: yq -i '.makima-ms.image.tag = "${{ github.sha}}"' 'devops/helm/values.yaml'
       - name: Commit tag
         run: |
           git config --local user.email "biel_surf159@hotmail.com"
