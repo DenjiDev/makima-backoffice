@@ -67,6 +67,7 @@ jobs:
           tags: qzzdocker24/makima-backoffice:${{ github.sha}}, qzzdocker24/makima-backoffice:latest
   deploy:
     name: Deploy to K8S
+    needs: ci_docker_dev
     if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.actor != 'github-actions[bot]'}}
     runs-on: ubuntu-latest
     steps:
