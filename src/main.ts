@@ -29,7 +29,11 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
 
   app.use(swStats.getMiddleware({ swaggerSpec: document }));
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    transform: true,
+    forbidNonWhitelisted: true
+  }))
   await app.listen(process.env.API_PORT || DEFAULT_API_PORT);
   loggerInstance.log(`Makima Backoffice API, Application is running on: ${await app.getUrl()}`)
 }

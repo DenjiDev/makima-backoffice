@@ -1,8 +1,7 @@
 import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString } from "class-validator";
-import { Customer } from "../entities/customer.entity";
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateCustomerDto extends Customer{
+export class CreateCustomerDto {
     @IsString()
     @IsPhoneNumber("BR")
     @ApiProperty({
